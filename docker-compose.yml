@@ -23,16 +23,13 @@ services:
       - POSTGRES_USER=petclinic
       - POSTGRES_DB=petclinic
 
-  # New Spring Application Service
   app:
-    image: openjdk:8-jdk-alpine                # Java 8 image
-    container_name: spring-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: app:latest
     ports:
-      - "8081:8081"                           # Maps container's port 8080 to host's port 8080
-    volumes:
-      - "./target:/app"                       # Mounts the JAR directory to the container
-    working_dir: /app                          # Sets the working directory for the container
-    entrypoint: ["java", "-jar", "spring-petclinic.jar"] # Replace with the actual JAR name
+      - "8081:8081"
     depends_on:
       - mysql
       - postgres
