@@ -13,6 +13,7 @@ services:
       - MYSQL_DATABASE=petclinic
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
+
   postgres:
     image: postgres:14.1
     ports:
@@ -21,3 +22,17 @@ services:
       - POSTGRES_PASSWORD=petclinic
       - POSTGRES_USER=petclinic
       - POSTGRES_DB=petclinic
+
+  # New Spring Application Service
+  app:
+    image: openjdk:8-jdk-alpine                # Java 8 image
+    container_name: spring-app
+    ports:
+      - "8081:8081"                           # Maps container's port 8080 to host's port 8080
+    volumes:
+      - "./target:/app"                       # Mounts the JAR directory to the container
+    working_dir: /app                          # Sets the working directory for the container
+    entrypoint: ["java", "-jar", "spring-petclinic.jar"] # Replace with the actual JAR name
+    depends_on:
+      - mysql
+      - postgres
