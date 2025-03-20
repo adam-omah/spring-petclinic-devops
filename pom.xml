@@ -14,6 +14,11 @@
 
   <properties>
 
+    <sonar.projectKey>spring-petclinic-devops</sonar.projectKey>
+    <sonar.organization>adam-omah</sonar.organization>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url> <!--suppress UnresolvedMavenProperty -->
+    <sonar.login>${env.SONAR_TOKEN}</sonar.login>
+
     <!-- Generic properties -->
     <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
